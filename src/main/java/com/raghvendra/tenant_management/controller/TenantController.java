@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/tenants")
 @CrossOrigin(origins = "*") 
@@ -54,4 +57,17 @@ public class TenantController {
         return deleted ? ResponseEntity.noContent().build()
                        : ResponseEntity.notFound().build();
     }
+
+        // Login endpoint
+    @PostMapping("/login")
+    public ResponseEntity<Tenant> login(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+
+        Optional<Tenant> tenant = tenantService.getTenantByEmailAndPassword(email, password);
+        
+        return tenant.map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+    }
+
 }

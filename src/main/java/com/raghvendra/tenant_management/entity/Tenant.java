@@ -57,4 +57,16 @@ public class Tenant {
     public void setRole(String role) {
         this.role = role;
     }
+
+    // Add this field:
+    private String password;
+
+    // Add getter & setter
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

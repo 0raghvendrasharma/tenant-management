@@ -49,5 +49,9 @@ public class TenantService {
         }
         return false;
     }
+    // Added login logic
+    public Optional<Tenant> getTenantByEmailAndPassword(String email, String password) {
+        return tenantRepository.findByEmailAndPassword(email, password);
+    }
 }
 
